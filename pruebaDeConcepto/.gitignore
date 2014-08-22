@@ -2,7 +2,6 @@
 .classpath
 .project
 /.settings
-.project
 /src/main/xtend-gen
 /src/test/xtend-gen
 /src/main/generated-sources
