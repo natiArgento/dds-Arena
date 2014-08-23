@@ -1,7 +1,6 @@
 package dds2014.dominio
 
 import org.uqbar.commons.utils.Observable
-import java.util.Date
 
 @Observable
 class Nota {

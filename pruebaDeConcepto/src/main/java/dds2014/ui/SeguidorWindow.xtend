@@ -13,8 +13,6 @@ import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.layout.HorizontalLayout
 
 class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 

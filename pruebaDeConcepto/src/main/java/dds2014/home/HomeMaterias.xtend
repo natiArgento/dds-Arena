@@ -5,6 +5,7 @@ import dds2014.dominio.Materia
 import org.apache.commons.collections15.Predicate
 import org.uqbar.commons.model.CollectionBasedHome
 import dds2014.dominio.Nota
+import java.util.List
 
 @Observable
 class HomeMaterias extends CollectionBasedHome<Materia> {
@@ -20,16 +21,16 @@ new(){
 	this.init
 }
 	def init() {
-		this.create("Matematica Discreta", 2012, true, "Demmler", [n1, n3])
-		this.create("Sintaxis", 2013, true,"Adamoli", [n2])
-		this.create("Analisis 2", 2013, false,"Cossuti", [n4])
-		this.create("Porbabilidad", 2014, true,"Fernandez", [n5])
+		this.create("Matematica Discreta", 2012, true, "Demmler", #[n1, n3])
+		this.create("Sintaxis", 2013, true,"Adamoli", #[n2])
+		this.create("Analisis 2", 2013, false,"Cossuti", #[n4])
+		this.create("Porbabilidad", 2014, true,"Fernandez", #[n5])
 
 	}
 
 	
 	
-	def void create(String nombreMat, int anio, Boolean aprobado, String profe, Nota notas) {
+	def void create(String nombreMat, int anio, Boolean aprobado, String profe, List<Nota> notas) {
 		var materia = new Materia
 		materia.nombre= nombreMat
 		materia.anioCursada= anio
