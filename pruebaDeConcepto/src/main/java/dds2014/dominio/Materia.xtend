@@ -6,18 +6,33 @@ import org.uqbar.commons.model.Entity
 import java.util.List
 
 @Observable
-
 class Materia extends Entity implements Cloneable {
-@Property String nombre
-@Property int anioCursada
-@Property Boolean estaAprobada = false
-@Property String profesor
-@Property List<Nota> notas
+	@Property String nombre
+	@Property int anioCursada
+	@Property Boolean estaAprobada = false
+	@Property String profesor
+	@Property Nivel nivelMateria
+	@Property List<Nota> notas
 
-def validar(){
-if (nombre == null){
-	
-throw new UserException("Debe ingresar nombre de materia")
-}
-}
+	def void setNivelDeMateria(Nivel nivel) {
+
+		this._nivelMateria = nivel
+
+	}
+
+	def ingresarNombre() {
+		nombre != null && !nombre.trim().equals("")
+	}
+
+	def validar() {
+		if (!this.ingresarNombre()) {
+
+			throw new UserException("Debe ingresar nombre de materia")
+		}
+
+		/*manera fea de ver que la fecha no sea incorrecta, luego lo corrijo */
+		if (this.anioCursada > 2015) {
+			throw new UserException("Debe ingresar fecha valida")
+		}
+	}
 }
