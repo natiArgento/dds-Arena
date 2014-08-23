@@ -3,7 +3,6 @@ package dds2014.ui
 import dds2014.applicationModel.SeguidorDeCarrera
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.VerticalLayout
-import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.CheckBox
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.List
