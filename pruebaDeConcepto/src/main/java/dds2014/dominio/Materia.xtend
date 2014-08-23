@@ -2,9 +2,11 @@ package dds2014.dominio
 
 import dds2014.excepciones.UserException
 import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.model.Entity
 
 @Observable
-class Materia implements Cloneable {
+
+class Materia extends Entity implements Cloneable {
 @Property String nombre
 @Property int anioCursada
 @Property Boolean estaAprobada = false
