@@ -20,13 +20,19 @@ class Materia extends Entity implements Cloneable {
 
 	}
 
+	def ingresarNombre() {
+		nombre != null && !nombre.trim().equals("")
+	}
+
 	def validar() {
-		if (this.nombre == null) {
+		if (!this.ingresarNombre()) {
 
 			throw new UserException("Debe ingresar nombre de materia")
 		}
+
 		/*manera fea de ver que la fecha no sea incorrecta, luego lo corrijo */
-		if(this.anioCursada >2015 ){
-		throw new UserException("Debe ingresar fecha valida")}
+		if (this.anioCursada > 2015) {
+			throw new UserException("Debe ingresar fecha valida")
+		}
 	}
 }
