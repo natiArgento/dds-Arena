@@ -1,9 +1,10 @@
 package dds2014.dominio
 
 import org.uqbar.commons.utils.Observable
+import org.uqbar.commons.model.Entity
 
 @Observable
-class Nivel {
+class Nivel extends Entity {
 	@Property String nroCuatri
 	@Property String nroNivel
 	
