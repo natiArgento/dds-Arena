@@ -1,6 +1,7 @@
 package dds2014.ui
 
 import dds2014.applicationModel.SeguidorDeCarrera
+import dds2014.dominio.Materia
 import dds2014.dominio.Nota
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
@@ -14,6 +15,7 @@ import org.uqbar.arena.widgets.Selector
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.tables.Column
 import org.uqbar.arena.widgets.tables.Table
+import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
@@ -46,7 +48,11 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 		new Label(panelListaMaterias).text = "Materias"
 		
 		new List<Object>(panelListaMaterias) => [heigth = 200 width = 125]
-		new Button(panelListaMaterias) => [caption = "Nueva materia" width = 65]
+		new Button(panelListaMaterias) => [caption = "Nueva materia" width = 65 onClick[|this.agregarMateria()]]
+	}
+	
+	def void agregarMateria() {
+		this.openDialog(new NuevaMateriaWindow(this, new Materia))
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
@@ -93,4 +99,8 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 	override protected addActions(Panel actionsPanel) {
 	}
 
+	def openDialog(Dialog<?> dialog) {
+		dialog.onAccept[|this.modelObject]
+		dialog.open
+	}
 }
