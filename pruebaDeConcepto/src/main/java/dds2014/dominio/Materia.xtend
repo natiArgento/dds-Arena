@@ -7,6 +7,8 @@ class Materia implements Cloneable {
 @Property int anioCursada
 @Property Boolean estaAprobada = false
 @Property String profesor
+@Property Nota notas
+
 def validar(){
 if (nombre == null){
 	
