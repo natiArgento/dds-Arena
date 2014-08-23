@@ -1,7 +1,9 @@
 package dds2014.ui
 
 import dds2014.applicationModel.SeguidorDeCarrera
+import dds2014.dominio.Nota
 import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.CheckBox
@@ -16,98 +18,79 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
 class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
-	
-	
-	
+
 	new(WindowOwner parent) {
 		super(parent, new SeguidorDeCarrera)
-		setTitle = "Seguidor de Carrera"
+		this.setTitle = "Seguidor de Carrera"
 	}
-	
-	override createMainTemplate(Panel mainPanel) {
-		mainPanel.setLayout(new VerticalLayout)
-		
-		new Label(mainPanel).text="Seguidor de Carrera"
-		
-		createFormPanel(mainPanel)
+
+	override createContents(Panel mainPanel) {
+		var Panel formPanel
+		var Label lblTitulo = new Label(mainPanel)
+		lblTitulo.text = "Seguidor de carrera"
+		lblTitulo.setFontSize(18)
+
+		//lblTitulo.onLeft
+		formPanel = new Panel(mainPanel)
+		formPanel.setLayout(new HorizontalLayout)
+		addListaMaterias(formPanel)
+		addDatosMateria(formPanel)
+
+	//createFormPanel(mainPanel)
 	}
-		
-	override protected createFormPanel(Panel mainPanel) {
-		addPanelMaterias(mainPanel)
-		addActions(mainPanel)
-		
-	}
-	
-	def addPanelMaterias(Panel mainPanel) {
-		var panelDeMaterias = new Panel(mainPanel)
-		panelDeMaterias.setLayout(new ColumnLayout(2))
-		
-		addListaMaterias(panelDeMaterias)
-		addDatosMateria(panelDeMaterias)
-	}
-	
+
 	def addListaMaterias(Panel panel) {
 		var panelListaMaterias = new Panel(panel)
+
+		panelListaMaterias.setLayout(new VerticalLayout)
+		new Label(panelListaMaterias).text = "Materias"
 		
-		new Label(panelListaMaterias).text="Materias"
-				
-		new List<Object>(panelListaMaterias)
-		
+		new List<Object>(panelListaMaterias) => [heigth = 200 width = 125]
+		new Button(panelListaMaterias) => [caption = "Nueva materia" width = 65]
+	}
+
+	override protected createFormPanel(Panel mainPanel) {
+		addActions(mainPanel)
 	}
 	
 	def addDatosMateria(Panel panel) {
-		
 		var panelDatosMateria = new Panel(panel)
-		panelDatosMateria.setLayout(new VerticalLayout)
-		
-		new Label(panelDatosMateria).text="Nombre materia"
-		
-		var subPanel1 = new Panel(panelDatosMateria)
-			.setLayout(new ColumnLayout(4))
-			new Label(subPanel1).text="Año cursada"
-			new TextBox(subPanel1)
-			new CheckBox(subPanel1)
-			new Label(subPanel1).text="Final Aprobado"
-								
-		var subPanel2 = new Panel(panelDatosMateria)
-			.setLayout(new ColumnLayout(2))
-			
-			new Label(subPanel2).text="Profesor de cursada"
-			new TextBox(subPanel2)
-			
-			new Label(subPanel2).text="Ubicación materia"
-			new Selector(subPanel2)
-			
-			new Label(subPanel2).text="Notas de cursada"
-			
-			this.createTablaNotas(panelDatosMateria)
-			
-			
+		new Label(panelDatosMateria) => [text = "Nombre materia" setFontSize(12)]
+
+		var subPanel1 = new Panel(panelDatosMateria).setLayout(new ColumnLayout(4))
+		new Label(subPanel1).text = "Año cursada:"
+		new TextBox(subPanel1).width = 30
+		new CheckBox(subPanel1)
+		new Label(subPanel1).text = "Final Aprobado"
+
+		var subPanel2 = new Panel(panelDatosMateria).setLayout(new ColumnLayout(2))
+		new Label(subPanel2).text = "Profesor de cursada"
+		new TextBox(subPanel2).width = 160
+		new Label(subPanel2).text = "Ubicación materia"
+		new Selector(subPanel2).width = 145
+		new Label(subPanel2).text = "Notas de cursada"
+
+		this.createTablaNotas(panelDatosMateria)
+
+		var subPanel3 = new Panel(panelDatosMateria).setLayout(new HorizontalLayout)
+
+		new Button(subPanel3) => [caption = "Editar" width = 80]
+		new Button(subPanel3) => [caption = "+" width = 80]
+		new Button(subPanel3) => [caption = "-" width = 80]
 	}
-	
+
 	def createTablaNotas(Panel panel) {
-		var notas = new Table<Object>(panel)
-		this.contenido(notas)
+		var notas = new Table<Nota>(panel, typeof(Nota))
+		notas.width = 270
+		notas.heigth = 60
+		new Column<Nota>(notas).setTitle("Fecha")	
+		new Column<Nota>(notas).setTitle("Descripcion")
+		new Column<Nota>(notas)
+			.setTitle("Aprobado")
+			.bindContentsToTransformer([nota | if (nota.estaAprobado) "SI" else "NO"])
 	}
-	
-	def void contenido(Table<Object> notas) {
-		
-		
-		new Column<Object>(notas) 
-			.setTitle("Fecha")
-		
-		new Column<Object>(notas) 
-			.setTitle("Descripcion")
-		
-		new Column<Object>(notas) 
-			.setTitle("Aprobado")	
-		
-	}
-	
+
 	override protected addActions(Panel actionsPanel) {
-		
-			}
-	
-	
-	
+	}
+
 }
