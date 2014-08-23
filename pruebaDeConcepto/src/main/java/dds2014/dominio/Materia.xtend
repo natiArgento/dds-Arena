@@ -1,7 +1,9 @@
 package dds2014.dominio
 
 import dds2014.excepciones.UserException
+import org.uqbar.commons.utils.Observable
 
+@Observable
 class Materia implements Cloneable {
 @Property String nombre
 @Property int anioCursada
