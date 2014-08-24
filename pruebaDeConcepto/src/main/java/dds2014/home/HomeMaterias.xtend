@@ -54,5 +54,9 @@ new(){
 	override def Predicate<Materia> getCriterio(Materia example) {
 		null
 	}
-
+	
+	def List<Materia> getMaterias() {
+		allInstances	
+	}
+	
 }
