@@ -14,6 +14,8 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 	var n3 = new Nota("2 parcial", 28102012, true)
 	var n4 = new Nota("parcial", 15092013, false)
 	var n5 = new Nota("parcial", 29062014, true)
+	var n6 = new Nota("parcial 1", 12062013, true)
+	var n7 = new Nota("parcial 2", 17112013, true)
 
 
 new(){
@@ -21,6 +23,7 @@ new(){
 	this.init
 }
 	def init() {
+		this.create("Análisis 1",2013,true,"Rinaldi", #[n6, n7])
 		this.create("Matematica Discreta", 2012, true, "Demmler", #[n1, n3])
 		this.create("Sintaxis", 2013, true,"Adamoli", #[n2])
 		this.create("Analisis 2", 2013, false,"Cossuti", #[n4])
