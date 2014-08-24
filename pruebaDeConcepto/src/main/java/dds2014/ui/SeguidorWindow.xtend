@@ -31,6 +31,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 	new(WindowOwner parent) {
 		super(parent, new SeguidorDeCarrera)
 		this.setTitle = "Seguidor de Carrera"
+		modelObject.actualizarMaterias
 	}
 
 	override createContents(Panel mainPanel) {
@@ -52,7 +53,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 		var lista = new List<Object>(panelListaMaterias) => [heigth = 200 width = 125
 			bindItems(new ObservableProperty(homeMaterias, "materias"))]
 		lista.bindValueToProperty("materiaSeleccionada")
-		var propiedad = lista.bindItems(new ObservableProperty(homeMaterias, "materias"))
+		var propiedad = lista.bindItems(new ObservableProperty(modelObject, "materias"))
 		propiedad.adapter = new PropertyAdapter(typeof(Materia), "nombre")
 
 		new Button(panelListaMaterias) => [caption = "Nueva materia" width = 65 onClick[|this.crearMateria()]]
@@ -135,7 +136,8 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 	}
 
 	def openDialog(Dialog<?> dialog) {
-		dialog.onAccept[|this.modelObject]
 		dialog.open
+		dialog.onAccept[|modelObject.actualizarMaterias]
+		
 	}
 }

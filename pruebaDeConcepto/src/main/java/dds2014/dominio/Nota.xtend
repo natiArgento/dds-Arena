@@ -9,6 +9,15 @@ class Nota extends Entity {
 	@Property String descripcion
 	@Property int fecha
 	@Property Boolean estaAprobado = false
+	
+	new(String string, int i, boolean b) {
+		descripcion = string
+		fecha=i
+		estaAprobado=b
+	}
+	
+	new() {
+	}
 
 	
 def asignarValores(String desc, int fecha, Boolean ap){
