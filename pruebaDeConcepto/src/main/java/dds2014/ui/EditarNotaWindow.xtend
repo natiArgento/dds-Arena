@@ -9,13 +9,15 @@ import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.CheckBox
+import dds2014.home.HomeNotas
+import org.uqbar.commons.utils.ApplicationContext
 
 class EditarNotaWindow extends Dialog<Nota> {
 
 	new(WindowOwner parent, Nota model) {
 		super(parent, model)
 		this.setTitle = "Editar Nota"
-		/*var original = model.clone() as Nota*/
+		
 	}
 
 	override createFormPanel(Panel mainPanel) {
@@ -43,8 +45,14 @@ override addActions(Panel actions){
 			
 			new Button(actions) //
 			.setCaption("Aceptar")
-			/* TODO: guardar cambios
-			]*/
+			.onClick [|this.accept]
+			.setAsDefault.disableOnError
 	
 }
+
+def getHomeNotas() {
+		ApplicationContext.instance.getSingleton(typeof(Nota)) as HomeNotas
+	}
+
+	
 }
