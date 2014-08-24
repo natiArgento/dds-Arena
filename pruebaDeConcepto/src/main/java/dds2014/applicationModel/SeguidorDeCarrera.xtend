@@ -4,6 +4,7 @@ import dds2014.dominio.Materia
 import dds2014.dominio.Nivel
 import dds2014.home.HomeMaterias
 import java.io.Serializable
+import java.util.ArrayList
 import java.util.List
 import org.uqbar.commons.utils.ApplicationContext
 import org.uqbar.commons.utils.Observable
@@ -18,6 +19,7 @@ class SeguidorDeCarrera implements Serializable {
 	
 	
 	def void actualizarMaterias(){
+		materias = new ArrayList<Materia>
 		materias = getHomeMaterias().getMaterias()	
 	}
 	

@@ -11,8 +11,8 @@ import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.commons.utils.ApplicationContext
 
 class NuevaMateriaWindow extends Dialog<Materia> {
-	new(WindowOwner parent, Materia model) {
-		super(parent, model)
+	new(WindowOwner owner) {
+		super(owner, new Materia)
 		this.setTitle = "Nueva Materia"
 	}
 	
@@ -22,13 +22,24 @@ class NuevaMateriaWindow extends Dialog<Materia> {
 		width = 150
 		bindValueToProperty ("nombre")
 		]
-		new Button(mainPanel) => [caption = "Aceptar" width = 80
+	}
+	
+	override protected void addActions(Panel actions) {
+		new Button(actions) => [
+			caption = "Aceptar" 
+			width = 80
 			onClick[|this.accept()]
 		]
+		new Button(actions) => [
+			caption = "Cancelar" 
+			width = 80
+			onClick[|this.cancel()]
+		]
+				
 	}
 	
 	override executeTask() {
-		homeMaterias.create(modelObject)
+		getHomeMaterias.create(modelObject)
 		super.executeTask()
 	}
 	
