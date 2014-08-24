@@ -75,8 +75,8 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 	
 	def addDatosMateria(Panel panel) {
 		var panelDatosMateria = new Panel(panel)
-		new Label(panelDatosMateria)
-		
+		new Label(panelDatosMateria) => [text = "Nombre materia" setFontSize(12)]
+
 		var subPanel1 = new Panel(panelDatosMateria).setLayout(new ColumnLayout(4))
 		new Label(subPanel1).text = "Año cursada:"
 		new TextBox(subPanel1).width = 30
