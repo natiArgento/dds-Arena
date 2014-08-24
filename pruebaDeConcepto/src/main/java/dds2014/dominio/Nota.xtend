@@ -10,12 +10,12 @@ class Nota extends Entity {
 	@Property int fecha
 	@Property Boolean estaAprobado = false
 
-	new(String desc, int fecha, Boolean aprobacion) {
-		this.descripcion = desc
-		this.fecha = fecha
-		this.estaAprobado = aprobacion
-	}
-
+	
+def asignarValores(String desc, int fecha, Boolean ap){
+	this.descripcion= desc
+	this.fecha= fecha
+	this.estaAprobado= ap
+}
 	override clone() {
 		super.clone()
 	}

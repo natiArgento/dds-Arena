@@ -50,7 +50,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 		var lista = new List<Object>(panelListaMaterias) => [
 			heigth = 200
 			width = 125
-			bindItems(new ObservableProperty(homeMaterias, "materias")]
+			bindItems(new ObservableProperty(homeMaterias, "materias"))]
 		lista.bindValueToProperty("materiaSeleccionada")
 		var propiedad = lista.bindItems(new ObservableProperty(homeMaterias, "materias"))
 		propiedad.adapter = new PropertyAdapter(typeof(Materia), "nombre")
@@ -66,6 +66,10 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 	
 	def void crearMateria() {
 		this.openDialog(new NuevaMateriaWindow(this, new Materia))
+	}
+	
+	def void editarNota(){
+		this.openDialog(new EditarNotaWindow(this, new Nota()))
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
@@ -104,7 +108,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 
 		var subPanel3 = new Panel(panelDatosMateria).setLayout(new HorizontalLayout)
 
-		new Button(subPanel3) => [caption = "Editar" width = 80]
+		new Button(subPanel3) => [caption = "Editar" width = 80 onClick[|this.editarNota()]]
 		new Button(subPanel3) => [caption = "+" width = 80]
 		new Button(subPanel3) => [caption = "-" width = 80]
 	}
