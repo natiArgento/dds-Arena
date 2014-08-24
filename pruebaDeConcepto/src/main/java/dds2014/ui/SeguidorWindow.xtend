@@ -75,8 +75,10 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 			//bindValueToProperty("nombre")
 			 setFontSize(12)]
 
+		new Label(panelDatosMateria) => [text = "Nombre materia" setFontSize(12)]
+
 		var subPanel1 = new Panel(panelDatosMateria).setLayout(new ColumnLayout(4))
-		new Label(subPanel1).text = "A�o cursada:"
+		new Label(subPanel1).text = "A?o cursada:"
 		new TextBox(subPanel1) => [
 			//bindValueToProperty("anioCursada")
 			width = 30
@@ -91,7 +93,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 			//bindValueToProperty("profesor")
 			width = 160
 		]
-		new Label(subPanel2).text = "Ubicaci�n materia"
+		new Label(subPanel2).text = "Ubicaci?n materia"
 		new Selector(subPanel2).width = 145
 		new Label(subPanel2).text = "Notas de cursada"
 
