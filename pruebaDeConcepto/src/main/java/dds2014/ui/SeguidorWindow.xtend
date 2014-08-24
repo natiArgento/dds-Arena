@@ -47,7 +47,10 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 		panelListaMaterias.setLayout(new VerticalLayout)
 		
 		new Label(panelListaMaterias).text = "Materias"
-		var lista = new List<Object>(panelListaMaterias) => [heigth = 200 width = 125]
+		var lista = new List<Object>(panelListaMaterias) => [
+			heigth = 200
+			width = 125
+			bindItems(new ObservableProperty(homeMaterias, "materias")]
 		lista.bindValueToProperty("materiaSeleccionada")
 		var propiedad = lista.bindItems(new ObservableProperty(homeMaterias, "materias"))
 		propiedad.adapter = new PropertyAdapter(typeof(Materia), "nombre")
@@ -57,7 +60,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 	}
 	
 	def getHomeMaterias() {
-		ApplicationContext::instance.getSingleton(typeof(Materia)) as HomeMaterias
+	ApplicationContext::instance.getSingleton(typeof(Materia)) as HomeMaterias
 	}
 	
 	
@@ -78,7 +81,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 		new Label(panelDatosMateria) => [text = "Nombre materia" setFontSize(12)]
 
 		var subPanel1 = new Panel(panelDatosMateria).setLayout(new ColumnLayout(4))
-		new Label(subPanel1).text = "A?o cursada:"
+		new Label(subPanel1).text = "Año cursada:"
 		new TextBox(subPanel1) => [
 			//bindValueToProperty("anioCursada")
 			width = 30
@@ -93,7 +96,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 			//bindValueToProperty("profesor")
 			width = 160
 		]
-		new Label(subPanel2).text = "Ubicaci?n materia"
+		new Label(subPanel2).text = "Ubicacion materia"
 		new Selector(subPanel2).width = 145
 		new Label(subPanel2).text = "Notas de cursada"
 
