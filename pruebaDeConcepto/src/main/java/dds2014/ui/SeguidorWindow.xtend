@@ -64,6 +64,10 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 	def void crearMateria() {
 		this.openDialog(new NuevaMateriaWindow(this, new Materia))
 	}
+	
+	def void editarNota(){
+		this.openDialog(new EditarNotaWindow(this, new Nota()))
+	}
 
 	override protected createFormPanel(Panel mainPanel) {
 		addActions(mainPanel)
@@ -78,7 +82,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 		new Label(panelDatosMateria) => [text = "Nombre materia" setFontSize(12)]
 
 		var subPanel1 = new Panel(panelDatosMateria).setLayout(new ColumnLayout(4))
-		new Label(subPanel1).text = "A?o cursada:"
+		new Label(subPanel1).text = "Año cursada:"
 		new TextBox(subPanel1) => [
 			//bindValueToProperty("anioCursada")
 			width = 30
@@ -93,7 +97,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 			//bindValueToProperty("profesor")
 			width = 160
 		]
-		new Label(subPanel2).text = "Ubicaci?n materia"
+		new Label(subPanel2).text = "Ubicacion materia"
 		new Selector(subPanel2).width = 145
 		new Label(subPanel2).text = "Notas de cursada"
 
@@ -101,7 +105,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 
 		var subPanel3 = new Panel(panelDatosMateria).setLayout(new HorizontalLayout)
 
-		new Button(subPanel3) => [caption = "Editar" width = 80]
+		new Button(subPanel3) => [caption = "Editar" width = 80 onClick[|this.editarNota()]]
 		new Button(subPanel3) => [caption = "+" width = 80]
 		new Button(subPanel3) => [caption = "-" width = 80]
 	}
