@@ -3,6 +3,9 @@ package dds2014.ui
 import dds2014.applicationModel.SeguidorDeCarrera
 import dds2014.dominio.Materia
 import dds2014.dominio.Nota
+import dds2014.home.HomeMaterias
+import org.uqbar.arena.bindings.ObservableProperty
+import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.layout.VerticalLayout
@@ -18,6 +21,7 @@ import org.uqbar.arena.widgets.tables.Table
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
+import org.uqbar.commons.utils.ApplicationContext
 
 class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 
@@ -47,9 +51,19 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 		panelListaMaterias.setLayout(new VerticalLayout)
 		new Label(panelListaMaterias).text = "Materias"
 		
-		new List<Object>(panelListaMaterias) => [heigth = 200 width = 125]
+		var lista = new List<Object>(panelListaMaterias) => [heigth = 200 width = 125]
+		lista.bindValueToProperty("materiaSeleccionada")
+		var propiedad = lista.bindItems(new ObservableProperty(homeMaterias, "materias"))
+		propiedad.adapter = new PropertyAdapter(typeof(Materia), "nombre")
+		
+			
 		new Button(panelListaMaterias) => [caption = "Nueva materia" width = 65 onClick[|this.agregarMateria()]]
 	}
+	
+	def getHomeMaterias() {
+		ApplicationContext::instance.getSingleton(typeof(Materia)) as HomeMaterias
+	}
+	
 	
 	def void agregarMateria() {
 		this.openDialog(new NuevaMateriaWindow(this, new Materia))
@@ -61,8 +75,8 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 	
 	def addDatosMateria(Panel panel) {
 		var panelDatosMateria = new Panel(panel)
-		new Label(panelDatosMateria) => [text = "Nombre materia" setFontSize(12)]
-
+		new Label(panelDatosMateria)
+		
 		var subPanel1 = new Panel(panelDatosMateria).setLayout(new ColumnLayout(4))
 		new Label(subPanel1).text = "Año cursada:"
 		new TextBox(subPanel1).width = 30
