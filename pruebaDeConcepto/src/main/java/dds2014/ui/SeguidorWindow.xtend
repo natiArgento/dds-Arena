@@ -2,8 +2,10 @@ package dds2014.ui
 
 import dds2014.applicationModel.SeguidorDeCarrera
 import dds2014.dominio.Materia
+import dds2014.dominio.Nivel
 import dds2014.dominio.Nota
 import dds2014.home.HomeMaterias
+import dds2014.home.HomeNivel
 import org.uqbar.arena.bindings.ObservableProperty
 import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.layout.ColumnLayout
@@ -23,8 +25,6 @@ import org.uqbar.arena.windows.ErrorsPanel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.commons.utils.ApplicationContext
-import dds2014.home.HomeNivel
-import dds2014.dominio.Nivel
 
 class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 
@@ -85,25 +85,29 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 		labelDatos.setFontSize(12)
 		//labelDatos.bindValueToProperty("nombre")
 
-		new Label(panelDatosMateria) => [text = "Nombre materia" setFontSize(12)]
+		new Label(panelDatosMateria) 
+			.setFontSize(12)
+			.bindValueToProperty("materiaSeleccionada.nombre")
 
 		var subPanel1 = new Panel(panelDatosMateria).setLayout(new ColumnLayout(4))
+		
 		new Label(subPanel1).text = "Año cursada:"
 		new TextBox(subPanel1) => [
-			//bindValueToProperty("anioCursada")
 			width = 30
+			bindValueToProperty("materiaSeleccionada.anioCursada")			
 		]
+		
 		new CheckBox(subPanel1)
-
-		//.bindValueToProperty("estaAprobada")
+			.bindValueToProperty("materiaSeleccionada.estaAprobada")
 		new Label(subPanel1).text = "Final Aprobado"
 
 		var subPanel2 = new Panel(panelDatosMateria).setLayout(new ColumnLayout(2))
 		new Label(subPanel2).text = "Profesor de cursada"
 		new TextBox(subPanel2) => [
-			//bindValueToProperty("profesor")
+			bindValueToProperty("materiaSeleccionada.profesor")
 			width = 160
 		]
+		
 		new Label(subPanel2).text = "Ubicacion materia"
 		var selectorNivel = new Selector(subPanel2)
 		selectorNivel.width = 145
