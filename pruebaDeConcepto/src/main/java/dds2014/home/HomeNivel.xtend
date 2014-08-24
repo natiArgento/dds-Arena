@@ -31,15 +31,6 @@ class HomeNivel extends CollectionBasedHome<Nivel> {
 		this.create(nivel)
 	}
 
-	def List<Nivel> getNiveles() {
-		allInstances
-	}
-
-	def Nivel get(String nroCuatri, String nroNivel) {
-/* esto no se si es necesario ya que no se realiza busqueda por ubicacion/nivel de la materia */
-		niveles.findFirst[nivel|nivel.nroCuatri.equals(nroCuatri)]
-	}
-
 	override def Class<Nivel> getEntityType() {
 		typeof(Nivel)
 	}
@@ -51,5 +42,8 @@ class HomeNivel extends CollectionBasedHome<Nivel> {
 	override def Predicate<Nivel> getCriterio(Nivel example) {
 		null
 	}
-
+	
+	def List<Nivel> getMaterias() {
+		allInstances	
+	}
 }

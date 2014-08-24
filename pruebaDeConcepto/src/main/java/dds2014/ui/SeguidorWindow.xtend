@@ -23,6 +23,8 @@ import org.uqbar.arena.windows.ErrorsPanel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.commons.utils.ApplicationContext
+import dds2014.home.HomeNivel
+import dds2014.dominio.Nivel
 
 class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 
@@ -33,7 +35,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 
 	override createContents(Panel mainPanel) {
 		var Panel formPanel
-		new Label(mainPanel) => [text = "Seguidor de carrera" setFontSize (18)]
+		new Label(mainPanel) => [text = "Seguidor de carrera" setFontSize(18)]
 		formPanel = new Panel(mainPanel)
 		formPanel.setLayout(new HorizontalLayout)
 		addListaMaterias(formPanel)
@@ -45,42 +47,42 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 	def addListaMaterias(Panel panel) {
 		var panelListaMaterias = new Panel(panel)
 		panelListaMaterias.setLayout(new VerticalLayout)
-		
+
 		new Label(panelListaMaterias).text = "Materias"
-		var lista = new List<Object>(panelListaMaterias) => [
-			heigth = 200
-			width = 125
+		var lista = new List<Object>(panelListaMaterias) => [heigth = 200 width = 125
 			bindItems(new ObservableProperty(homeMaterias, "materias"))]
 		lista.bindValueToProperty("materiaSeleccionada")
 		var propiedad = lista.bindItems(new ObservableProperty(homeMaterias, "materias"))
 		propiedad.adapter = new PropertyAdapter(typeof(Materia), "nombre")
-		
-			
+
 		new Button(panelListaMaterias) => [caption = "Nueva materia" width = 65 onClick[|this.crearMateria()]]
 	}
-	
+
 	def getHomeMaterias() {
-	ApplicationContext::instance.getSingleton(typeof(Materia)) as HomeMaterias
+		ApplicationContext::instance.getSingleton(typeof(Materia)) as HomeMaterias
 	}
-	
-	
+
+	def getHomeNivel() {
+		 ApplicationContext::instance.getSingleton(typeof(Nivel)) as HomeNivel
+	}
+
 	def void crearMateria() {
 		this.openDialog(new NuevaMateriaWindow(this, new Materia))
 	}
-	
-	def void editarNota(){
+
+	def void editarNota() {
 		this.openDialog(new EditarNotaWindow(this, new Nota()))
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
 		addActions(mainPanel)
 	}
-	
+
 	def addDatosMateria(Panel panel) {
 		var panelDatosMateria = new Panel(panel)
-		new Label(panelDatosMateria) => [
-			//bindValueToProperty("nombre")
-			 setFontSize(12)]
+	 var labelDatos=new Label(panelDatosMateria) 
+		labelDatos.setFontSize(12)
+		//labelDatos.bindValueToProperty("nombre")
 
 		new Label(panelDatosMateria) => [text = "Nombre materia" setFontSize(12)]
 
@@ -91,6 +93,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 			width = 30
 		]
 		new CheckBox(subPanel1)
+
 		//.bindValueToProperty("estaAprobada")
 		new Label(subPanel1).text = "Final Aprobado"
 
@@ -101,7 +104,12 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 			width = 160
 		]
 		new Label(subPanel2).text = "Ubicacion materia"
-		new Selector(subPanel2).width = 145
+		var selectorNivel = new Selector(subPanel2)
+		selectorNivel.width = 145
+		selectorNivel.bindValueToProperty("nivelMateria")
+		 /*var propiedadNiveles = selectorNivel.bindItems(new ObservableProperty(HomeNivel, "niveles"))
+		propiedadNiveles.adapter = new PropertyAdapter(typeof(Nivel), "nroCuatri")/* */
+
 		new Label(subPanel2).text = "Notas de cursada"
 
 		this.createTablaNotas(panelDatosMateria)
@@ -117,11 +125,10 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 		var notas = new Table<Nota>(panel, typeof(Nota))
 		notas.width = 270
 		notas.heigth = 60
-		new Column<Nota>(notas).setTitle("Fecha")	
+		new Column<Nota>(notas).setTitle("Fecha")
 		new Column<Nota>(notas).setTitle("Descripcion")
-		new Column<Nota>(notas)
-			.setTitle("Aprobado")
-			.bindContentsToTransformer([nota | if (nota.estaAprobado) "SI" else "NO"])
+		new Column<Nota>(notas).setTitle("Aprobado").bindContentsToTransformer(
+			[nota|if(nota.estaAprobado) "SI" else "NO"])
 	}
 
 	override protected addActions(Panel actionsPanel) {
