@@ -14,34 +14,31 @@ import org.uqbar.commons.utils.ApplicationContext
 
 class EditarNotaWindow extends Dialog<Nota> {
 
+	//var Nota original
+	
 	new(WindowOwner parent, Nota model) {
 		super(parent, model)
-		this.setTitle = "Editar Nota"
-		
+		//original = modelObject.clone() as Nota	
 	}
 
 	override createFormPanel(Panel mainPanel) {
+		this.setTitle = "Editar Nota"
 		val panel = new Panel(mainPanel)
 		panel.layout = new ColumnLayout(2)
+	
 		new Label(panel).text = "Fecha:"
-		val text= new TextBox(panel)
-		text.width= 64
-		text.bindValueToProperty("fecha")
-		
+		new TextBox(panel) => [width = 70 bindValueToProperty("fecha")]
 		new Label(panel).text = "Descripción:"
-		new TextBox(panel).bindValueToProperty("descripcion")
-		
-		new CheckBox(panel)
+		new TextBox(panel) => [width = 80 bindValueToProperty("descripcion")]
+		new CheckBox(panel).bindValueToProperty("estaAprobado")
 		new Label(panel).text = "Aprobado"
-		
-		
-		
+	
 	}
 
 override addActions(Panel actions){
-	new Button(actions)
+	/*new Button(actions)
 			.setCaption("Volver")
-			.onClick [|this.close]
+			.onClick [|this.close]*/
 			
 			new Button(actions) //
 			.setCaption("Aceptar")
