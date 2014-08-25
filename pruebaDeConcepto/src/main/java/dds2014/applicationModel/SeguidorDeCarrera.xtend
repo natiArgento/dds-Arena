@@ -65,7 +65,7 @@ class SeguidorDeCarrera implements Serializable {
 
 		resultados = homeNotas.search(descripcion, fecha, estaAprobado)
 
-	// también se puede llamar homeCelulares.search(numero, nombre) 
+	
 	}
 
 }
