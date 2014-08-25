@@ -112,13 +112,15 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 			width = 160
 		]
 		
-//		Nivel Materia. ARREGLAR SELECTOR
+//		Nivel Materia. SELECTOR
 		new Label(subPanel2).text = "Ubicacion materia"
 		var selectorNivel = new Selector(subPanel2)
 		selectorNivel.width = 145
-		selectorNivel.bindValueToProperty("nivelMateria")
-		 /*var propiedadNiveles = selectorNivel.bindItems(new ObservableProperty(HomeNivel, "niveles"))
-		propiedadNiveles.adapter = new PropertyAdapter(typeof(Nivel), "nroCuatri")/* */
+		selectorNivel.allowNull(true)
+//		Dandole las propiedades
+		selectorNivel.bindValueToProperty("materiaSeleccionada.nivelMateria.descripcion")
+		var propiedadNiveles = selectorNivel.bindItems(new ObservableProperty(homeNivel, "niveles"))
+		propiedadNiveles.adapter = new PropertyAdapter(typeof(Nivel), "descripcion")
 
 		new Label(subPanel2).text = "Notas de cursada"
 

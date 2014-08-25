@@ -43,7 +43,7 @@ class HomeNivel extends CollectionBasedHome<Nivel> {
 		null
 	}
 	
-	def List<Nivel> getMaterias() {
+	def List<Nivel> getNiveles() {
 		allInstances	
 	}
 }
