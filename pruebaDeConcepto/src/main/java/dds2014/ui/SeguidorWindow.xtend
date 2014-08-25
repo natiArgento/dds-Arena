@@ -30,32 +30,43 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 
 	new(WindowOwner parent) {
 		super(parent, new SeguidorDeCarrera)
+		//Titulo
 		this.setTitle = "Seguidor de Carrera"
+		//Cargar lista de materias
 		modelObject.actualizarMaterias
 	}
 
 	override createContents(Panel mainPanel) {
+		//Panel principal
 		var Panel formPanel
-		new Label(mainPanel) => [text = "Seguidor de carrera" setFontSize(18)]
+		new Label(mainPanel) => [
+			text = "Seguidor de carrera"
+			setFontSize(18)
+		]		
 		formPanel = new Panel(mainPanel)
 		formPanel.setLayout(new HorizontalLayout)
 		addListaMaterias(formPanel)
 		addDatosMateria(formPanel)
 		new ErrorsPanel(mainPanel, "Listo para buscar cualquier materia que vengaaaaa")
-
 	}
 
 	def addListaMaterias(Panel panel) {
 		var panelListaMaterias = new Panel(panel)
 		panelListaMaterias.setLayout(new VerticalLayout)
 
+		//MATERIAS: LISTA DE MATERIAS
 		new Label(panelListaMaterias).text = "Materias"
-		var lista = new List<Object>(panelListaMaterias) => [heigth = 200 width = 125
-			bindItems(new ObservableProperty(homeMaterias, "materias"))]
-		lista.bindValueToProperty("materiaSeleccionada")
+		var lista = new List<Object>(panelListaMaterias) => [
+			heigth = 200 
+			width = 125
+			bindItems(new ObservableProperty(homeMaterias, "materias"))
+			bindValueToProperty("materiaSeleccionada")
+		]
+		//bindeo la lista con la propiedad NOMBRE de las materias	
 		var propiedad = lista.bindItems(new ObservableProperty(modelObject, "materias"))
 		propiedad.adapter = new PropertyAdapter(typeof(Materia), "nombre")
-
+	
+		//NUEVA MATERIA
 		new Button(panelListaMaterias) => [
 			caption = "Nueva materia" 
 			width = 65 
@@ -63,55 +74,45 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 		]
 	}
 
-	def getHomeMaterias() {
-		ApplicationContext::instance.getSingleton(typeof(Materia)) as HomeMaterias
-	}
-
-	def getHomeNivel() {
-		 ApplicationContext::instance.getSingleton(typeof(Nivel)) as HomeNivel
-	}
-
-	def void crearMateria() {
-		this.openDialog(new NuevaMateriaWindow(this))
-	}
-
-	def void editarNota() {
-		this.openDialog(new EditarNotaWindow(this, new Nota()))
-	}
-
+	//???????????????????????
 	override protected createFormPanel(Panel mainPanel) {
 		addActions(mainPanel)
 	}
 
 	def addDatosMateria(Panel panel) {
-		var panelDatosMateria = new Panel(panel)
-	 var labelDatos=new Label(panelDatosMateria) 
-		labelDatos.setFontSize(12)
-		//labelDatos.bindValueToProperty("nombre")
+	var panelDatosMateria = new Panel(panel)
 
-		new Label(panelDatosMateria) 
-			.setFontSize(12)
-			.bindValueToProperty("materiaSeleccionada.nombre")
+//		NOMBRE MATERIA (NO EDITABLE)
+		new Label(panelDatosMateria) => [ 
+			setFontSize(12)
+			bindValueToProperty("materiaSeleccionada.nombre")
+		]
 
-		var subPanel1 = new Panel(panelDatosMateria).setLayout(new ColumnLayout(4))
+	var subPanel1 = new Panel(panelDatosMateria).setLayout(new ColumnLayout(4))
 		
+//		AÑO CURSADA(Editable con txt)
 		new Label(subPanel1).text = "Año cursada:"
 		new TextBox(subPanel1) => [
 			width = 30
 			bindValueToProperty("materiaSeleccionada.anioCursada")			
 		]
 		
+//		APROBADO. Check
 		new CheckBox(subPanel1)
 			.bindValueToProperty("materiaSeleccionada.estaAprobada")
 		new Label(subPanel1).text = "Final Aprobado"
+		
 
-		var subPanel2 = new Panel(panelDatosMateria).setLayout(new ColumnLayout(2))
+	var subPanel2 = new Panel(panelDatosMateria).setLayout(new ColumnLayout(2))
+
+//		PROFESOR: (editable. txt)
 		new Label(subPanel2).text = "Profesor de cursada"
 		new TextBox(subPanel2) => [
 			bindValueToProperty("materiaSeleccionada.profesor")
 			width = 160
 		]
 		
+//		Nivel Materia. ARREGLAR SELECTOR
 		new Label(subPanel2).text = "Ubicacion materia"
 		var selectorNivel = new Selector(subPanel2)
 		selectorNivel.width = 145
@@ -146,5 +147,20 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 	def openDialog(Dialog<?> dialog) {
 		dialog.onAccept[|modelObject.actualizarMaterias]
 		dialog.open
+	}
+
+	def getHomeMaterias() {
+		ApplicationContext::instance.getSingleton(typeof(Materia)) as HomeMaterias
+	}
+
+	def getHomeNivel() {
+		 ApplicationContext::instance.getSingleton(typeof(Nivel)) as HomeNivel
+	}
+
+	def void crearMateria() {
+		this.openDialog(new NuevaMateriaWindow(this))
+	}
+	def void editarNota() {
+		this.openDialog(new EditarNotaWindow(this, new Nota()))
 	}
 }
