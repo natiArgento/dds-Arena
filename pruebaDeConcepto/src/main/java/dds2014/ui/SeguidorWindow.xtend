@@ -122,12 +122,15 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 		var propiedadNiveles = selectorNivel.bindItems(new ObservableProperty(homeNivel, "niveles"))
 		propiedadNiveles.adapter = new PropertyAdapter(typeof(Nivel), "descripcion")
 
+//		NOTAS
 		new Label(subPanel2).text = "Notas de cursada"
 
+//		TABLA DE NOTAS
 		this.createTablaNotas(panelDatosMateria)
 
-		var subPanel3 = new Panel(panelDatosMateria).setLayout(new HorizontalLayout)
-
+	var subPanel3 = new Panel(panelDatosMateria).setLayout(new HorizontalLayout)
+		
+//		ACCIONES SOBRE TABLA DE NOTAS
 		new Button(subPanel3) => [caption = "Editar" width = 80 onClick[|this.editarNota()]]
 		new Button(subPanel3) => [caption = "+" width = 80]
 		new Button(subPanel3) => [caption = "-" width = 80]
@@ -137,10 +140,17 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 		var notas = new Table<Nota>(panel, typeof(Nota))
 		notas.width = 270
 		notas.heigth = 60
-		new Column<Nota>(notas).setTitle("Fecha")
-		new Column<Nota>(notas).setTitle("Descripcion")
-		new Column<Nota>(notas).setTitle("Aprobado").bindContentsToTransformer(
-			[nota|if(nota.estaAprobado) "SI" else "NO"])
+		notas.bindItemsToProperty("materiaSeleccionada.notas")
+		notas.bindValueToProperty("notaSeleccionada")
+		
+		new Column<Nota>(notas)
+			.setTitle("Fecha")
+			.bindContentsToProperty("fecha")
+		new Column<Nota>(notas)
+			.setTitle("Descripcion")
+			.bindContentsToProperty("descripcion")
+		new Column<Nota>(notas).setTitle("Aprobado")
+			.bindContentsToTransformer([nota | if (nota.estaAprobado) "SI" else "NO"])
 	}
 
 	override protected addActions(Panel actionsPanel) {

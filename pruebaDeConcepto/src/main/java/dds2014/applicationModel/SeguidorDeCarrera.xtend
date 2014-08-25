@@ -2,6 +2,7 @@ package dds2014.applicationModel
 
 import dds2014.dominio.Materia
 import dds2014.dominio.Nivel
+import dds2014.dominio.Nota
 import dds2014.home.HomeMaterias
 import java.io.Serializable
 import java.util.ArrayList
@@ -16,6 +17,7 @@ class SeguidorDeCarrera implements Serializable {
 	@Property Materia materiaSeleccionada
 	@Property Nivel nivelMateria
 	@Property List<Nivel> niveles
+	@Property Nota notaSeleccionada
 	
 	
 	def void actualizarMaterias(){
