@@ -133,8 +133,10 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 //		ACCIONES SOBRE TABLA DE NOTAS
 		new Button(subPanel3) => [caption = "Editar" width = 80 onClick[|this.editarNota()]]
 		new Button(subPanel3) => [caption = "+" width = 80 onClick [|this.agregarNota()]]
-		new Button(subPanel3) => [caption = "-" width = 80]
+		new Button(subPanel3) => [caption = "-" width = 80 onClick [ | modelObject.clear ]]
 	}
+	
+	
 
 	def createTablaNotas(Panel panel) {
 //		CREANDO TABLA DE NOTAS
@@ -156,6 +158,8 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 	}
 
 	override protected addActions(Panel actionsPanel) {
+		
+		
 	}
 
 	def openDialog(Dialog<?> dialog) {

@@ -39,5 +39,18 @@ class HomeNotas extends CollectionBasedHome<Nota> {
 	override def Predicate<Nota> getCriterio(Nota example) {
 		null
 	}
+	def search(String descripcion, Integer fecha, Boolean estaAprobado) {
+		allInstances.filter[nota|this.match(descripcion, nota.descripcion ) && this.match(fecha, nota.fecha)&& this.match(estaAprobado, nota.estaAprobado)].toList
+	}
+	
+	def match(Object expectedValue, Object realValue) {
+		if (expectedValue == null) {
+			return true
+		}
+		if (realValue == null) {
+			return false
+		}
+		realValue.toString().toLowerCase().contains(expectedValue.toString().toLowerCase())
+	}
 
 }
