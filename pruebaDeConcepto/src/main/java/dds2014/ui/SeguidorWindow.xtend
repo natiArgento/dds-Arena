@@ -137,12 +137,14 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 	}
 
 	def createTablaNotas(Panel panel) {
+//		CREANDO TABLA DE NOTAS
 		var notas = new Table<Nota>(panel, typeof(Nota))
 		notas.width = 270
 		notas.heigth = 60
 		notas.bindItemsToProperty("materiaSeleccionada.notas")
 		notas.bindValueToProperty("notaSeleccionada")
 		
+//		BINDEANDO COLUMNAS
 		new Column<Nota>(notas)
 			.setTitle("Fecha")
 			.bindContentsToProperty("fecha")
