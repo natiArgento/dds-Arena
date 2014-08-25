@@ -132,7 +132,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 		
 //		ACCIONES SOBRE TABLA DE NOTAS
 		new Button(subPanel3) => [caption = "Editar" width = 80 onClick[|this.editarNota()]]
-		new Button(subPanel3) => [caption = "+" width = 80]
+		new Button(subPanel3) => [caption = "+" width = 80 onClick [|this.agregarNota()]]
 		new Button(subPanel3) => [caption = "-" width = 80]
 	}
 
@@ -176,5 +176,10 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 	}
 	def void editarNota() {
 		this.openDialog(new EditarNotaWindow(this, new Nota()))
+	}
+	
+	def void agregarNota(){
+		this.openDialog(new AgregarNotaWindow(this, new Nota()))
+		
 	}
 }
