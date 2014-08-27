@@ -132,12 +132,9 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 //		ACCIONES SOBRE TABLA DE NOTAS
 		new Button(subPanel3) => [caption = "Editar" width = 80 onClick[|this.editarNota()]]
 		new Button(subPanel3) => [caption = "+" width = 80 onClick [|this.agregarNota()]]
-		new Button(subPanel3) => [caption = "-" width = 80 onClick [ | modelObject.clear /*o elminarNotaSeleccionada*/ ]]
+		new Button(subPanel3) => [caption = "-" width = 80 onClick [ | modelObject.eliminarNotaSeleccionada	]]
 	}
 	
-	def elminarNotaSeleccionada() {
-		modelObject.materiaSeleccionada.eliminar(modelObject.notaSeleccionada)
-	}
 	
 	
 
@@ -145,7 +142,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 //		CREANDO TABLA DE NOTAS
 		var notas = new Table<Nota>(panel, typeof(Nota))
 		notas.width = 270
-		notas.heigth = 60
+		notas.heigth = 100
 		notas.bindItemsToProperty("materiaSeleccionada.notas")
 		notas.bindValueToProperty("notaSeleccionada")
 		
@@ -166,7 +163,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 	}
 
 	def openDialog(Dialog<?> dialog) {
-		dialog.onAccept[|modelObject.actualizarMaterias]
+		dialog.onAccept[|modelObject.actualizarPantalla]
 		dialog.open
 	}
 
@@ -187,7 +184,12 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 	}
 	
 	def void agregarNota(){
-		this.openDialog(new AgregarNotaWindow(this, new Nota()))
+		this.openDialog(new AgregarNotaWindow(this, modelObject.materiaSeleccionada))
 		
+	}
+	def elminarNotaSeleccionada() {
+		modelObject.materiaSeleccionada.eliminar(modelObject.notaSeleccionada)
+		modelObject.notaSeleccionada=null
+		modelObject.materiaSeleccionada=modelObject.materiaSeleccionada
 	}
 }

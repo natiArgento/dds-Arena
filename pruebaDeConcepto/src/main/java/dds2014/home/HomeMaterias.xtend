@@ -24,15 +24,9 @@ class HomeMaterias extends CollectionBasedHome<Materia> {
 	}
 
 	def init() {
-		this.create("An�lisis 1", 2013, true, "Rinaldi", #[n6, n7])
-		this.create("Matematica Discreta", 2012, true, "Demmler", #[n1, n3])
-		this.create("Sintaxis", 2013, true,"Adamoli", #[n2])
-		this.create("Analisis 2", 2013, false,"Cossuti", #[n4])
-		this.create("Probabilidad", 2014, true,"Fernandez", #[n5])
-		this.create("Sintaxis", 2013, true, "Adamoli", #[n2])
-		this.create("Analisis 2", 2013, false, "Cossuti", #[n4])
-		this.create("Porbabilidad", 2014, true, "Fernandez", #[n5])
-
+		this.create("An�lisis 1", 2013, true, "Rinaldi", newArrayList(n1,n2,n3))
+		this.create("Matematica Discreta", 2012, true, "Demmler", newArrayList(n4,n5))
+		this.create("Sintaxis", 2013, true,"Adamoli", newArrayList(n6,n7))
 	} 
 
 	def void create(String nombreMat, int anio, Boolean aprobado, String profe, List<Nota> notas) {

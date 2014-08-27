@@ -41,4 +41,8 @@ class Materia extends Entity implements Cloneable {
 		notas.remove(nota)
 	}
 	
+	def nuevaNota(Nota nota) {
+		notas.add(nota)
+	}
+	
 }
