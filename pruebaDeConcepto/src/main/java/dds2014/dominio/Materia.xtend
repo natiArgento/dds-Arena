@@ -1,9 +1,10 @@
 package dds2014.dominio
 
 import dds2014.excepciones.UserException
-import org.uqbar.commons.utils.Observable
-import org.uqbar.commons.model.Entity
+import java.util.ArrayList
 import java.util.List
+import org.uqbar.commons.model.Entity
+import org.uqbar.commons.utils.Observable
 
 @Observable
 class Materia extends Entity implements Cloneable {
@@ -12,7 +13,7 @@ class Materia extends Entity implements Cloneable {
 	@Property Boolean estaAprobada = false
 	@Property String profesor
 	@Property Nivel nivelMateria
-	@Property List<Nota> notas
+	@Property List<Nota> notas = new ArrayList
 
 	def void setNivelDeMateria(Nivel nivel) {
 
@@ -35,4 +36,9 @@ class Materia extends Entity implements Cloneable {
 			throw new UserException("Debe ingresar fecha valida")
 		}
 	}
+	
+	def eliminar(Nota nota) {
+		notas.remove(nota)
+	}
+	
 }

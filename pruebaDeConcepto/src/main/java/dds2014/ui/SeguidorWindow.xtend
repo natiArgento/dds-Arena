@@ -59,9 +59,8 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 		var lista = new List<Object>(panelListaMaterias) => [
 			heigth = 200 
 			width = 125
-			bindItems(new ObservableProperty(homeMaterias, "materias"))
-			bindValueToProperty("materiaSeleccionada")
 		]
+		lista.bindValueToProperty("materiaSeleccionada")
 		//bindeo la lista con la propiedad NOMBRE de las materias	
 		var propiedad = lista.bindItems(new ObservableProperty(modelObject, "materias"))
 		propiedad.adapter = new PropertyAdapter(typeof(Materia), "nombre")
@@ -133,7 +132,11 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 //		ACCIONES SOBRE TABLA DE NOTAS
 		new Button(subPanel3) => [caption = "Editar" width = 80 onClick[|this.editarNota()]]
 		new Button(subPanel3) => [caption = "+" width = 80 onClick [|this.agregarNota()]]
-		new Button(subPanel3) => [caption = "-" width = 80 onClick [ | modelObject.clear ]]
+		new Button(subPanel3) => [caption = "-" width = 80 onClick [ | modelObject.clear /*o elminarNotaSeleccionada*/ ]]
+	}
+	
+	def elminarNotaSeleccionada() {
+		modelObject.materiaSeleccionada.eliminar(modelObject.notaSeleccionada)
 	}
 	
 	
