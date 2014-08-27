@@ -57,7 +57,7 @@ class SeguidorWindow extends SimpleWindow<SeguidorDeCarrera> {
 		//MATERIAS: LISTA DE MATERIAS
 		new Label(panelListaMaterias).text = "Materias"
 		var lista = new List<Object>(panelListaMaterias) => [
-			heigth = 200 
+			heigth = 225 
 			width = 125
 		]
 		lista.bindValueToProperty("materiaSeleccionada")
